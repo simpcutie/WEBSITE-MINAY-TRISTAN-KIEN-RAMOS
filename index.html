@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>My Personal Blog - Web Design Principles</title>
+ <script>
+    window.onload = function() {
+      alert('Welcome to my website!');
+    };
+   </script>
+ 
+ <style>
+  body {
+   font-family: Arial, sans-serif;
+   line-height: 1.6;
+   margin: 0;
+   padding: 0;
+   background-color: #f4f4f4;
+  }
+
+  header {
+   background: #232323;
+   color: white;
+   padding: 1.5rem;
+   text-align: center;
+  }
+
+  nav {
+   background: #000000;
+   padding: 0.8rem;
+   text-align: center;
+   position: sticky;
+   top: 0;
+   z-index: 100;
+  }
+   
+  nav a {
+   color: white;
+   margin: 0 15px;
+   text-decoration: none;
+   font-size: 18px;
+   padding: 8px 15px;
+   border-radius: 5px;
+   transition: all 0.3s ease;
+  }
+
+  nav a:hover {
+   background-color: #333;
+  }
+
+  nav a.active {
+   background-color: #444;
+  }
+
+  main {
+   margin: 20px;
+  }
+
+  .page {
+   display: none;
+  }
+
+  .page.active {
+   display: block;
+  }
+
+  button, input[type="submit"] {
+   cursor: pointer;
+   transition: all 0.3s ease;
+  }
+
+  button:hover, input[type="submit"]:hover {
+   opacity: 0.9;
+  }
+
+  a {
+   transition: all 0.3s ease;
+  }
+
+  .gallery-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+   gap: 35px;
+   margin-top: 30px;
+   width: 100%;
+   max-width: 100%;
+  }
+
+  .gallery-item {
+   overflow: hidden;
+   border-radius: 12px;
+   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   background-color: white;
+  }
+
+  .gallery-item:hover {
+   transform: translateY(-8px);
+   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  }
+
+  .gallery-item img {
+   width: 100%;
+   height: 300px;
+   object-fit: cover;
+   display: block;
+  }
+
+  .video-container {
+   position: relative;
+   padding-bottom: 100%;
+   height: 0;
+   overflow: hidden;
+   width: 100%;
+  }
+
+  .video-container iframe {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   border: 0;
+  }
+   
+  .gallery-caption {
+   padding: 20px;
+   text-align: left;
+   background-color: white;
+   flex-grow: 1;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+  }
+
+  .gallery-caption p {
+   margin: 0;
+   font-size: 18px;
+   font-weight: 500;
+  }
+
+  .gallery-container {
+   max-width: 1400px;
+   margin: 0 auto;
+   padding: 30px;
+  }
+
+  .gallery-header {
+   text-align: center;
+   margin-bottom: 40px;
+  }
+
+  .gallery-header h2 {
+   font-size: 36px;
+   margin-bottom: 15px;
+  }
+
+  @media screen and (min-width: 1600px) {
+   .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+   }
+  }
+
+  @media screen and (max-width: 1600px) and (min-width: 1200px) {
+   .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+   }
+  }
+
+  @media screen and (max-width: 1200px) and (min-width: 768px) {
+   .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+   }
+   
+   nav a {
+    margin: 0 8px;
+    font-size: 16px;
+    padding: 6px 12px;
+   }
+  }
+
+  @media screen and (max-width: 767px) {
+   .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+   }
+   
+   nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.5rem;
+   }
+   
+   nav a {
+    margin: 0 3px;
+    font-size: 14px;
+    padding: 5px 8px;
+   }
+
+   .gallery-item img {
+    height: 250px;
+   }
+  }
+
+  @media screen and (max-width: 600px) {
+   .about-hero {
+    flex-direction: column;
+   }
+
+   .about-hero > div:first-child {
+    height: 250px;
+   }
+
+   .about-hero > div:last-child {
+    padding: 25px;
+   }
+  }
+ </style>
+</head>
+
+<body>
+ <header>
+  <h1>Welcome to My Personal Web Design Blog</h1>
+  <p>Sharing knowledge about web design, HTML5, CSS, and JavaScript</p>
+ </header>
+
+ <nav id="main-nav">
+  <a href="#home" class="nav-link active" data-page="home">Home</a>
+  <a href="#about" class="nav-link" data-page="about">About</a>
+  <a href="#gallery" class="nav-link" data-page="gallery">Gallery</a>
+  <a href="#contact" class="nav-link" data-page="contact">Contact</a>
+  <a href="#dashboard" class="nav-link" data-page="dashboard">Dashboard</a>
+ </nav>
+
+ <main>
+  <div id="home" class="page active">
+   <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+     <section style="flex: 2; min-width: 300px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: fit-content;">
+      <h2 style="text-align: left; margin-bottom: 25px;">Latest Blog Posts</h2>
+      <article style="text-align: left; margin-bottom: 25px;">
+       <h3>Understanding HTML5 Semantics</h3>
+       <p>HTML5 introduced new semantic elements that help define the structure of web pages.</p>
+      </article>
+      <hr style="margin: 25px 0; border: none; border-top: 1px solid #eee;">
+      <article style="text-align: left;">
+       <h3>CSS Flexbox: A Beginner's Guide</h3>
+       <p>Flexbox is a powerful CSS layout model that makes designing flexible responsive layouts much easier.</p>
+      </article>
+     </section>
+
+     <div style="flex: 1; min-width: 250px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: fit-content;">
+      <h2 style="text-align: left; margin-bottom: 20px;">About Me</h2>
+      <p style="text-align: left;">Hello! I'm a web designer passionate about front-end development and user experience.</p>
+      <p style="text-align: left; margin-top: 20px; margin-bottom: 10px;">My Social Media:</p>
+      <ul style="list-style: none; padding: 0; display: flex; justify-content: flex-start; gap: 15px; flex-wrap: wrap;">
+       <li><a href="https://www.facebook.com/" target="_blank" style="color: #728FCE;">Facebook</a></li>
+       <li><a href="https://www.instagram.com/" target="_blank" style="color: #728FCE;">Instagram</a></li>
+       <li><a href="https://x.com/" target="_blank" style="color: #728FCE;">Twitter</a></li>
+       <li><a href="https://www.tiktok.com/" target="_blank" style="color: #728FCE;">TikTok</a></li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div id="about" class="page">
+   <div class="about-hero" style="background-color: #121212; color: white; padding: 0; margin: 0; width: 100%; display: flex; align-items: center;">
+    <div style="flex: 1; height: 400px; overflow: hidden;">
+     <img src="image-tkr.jpg" alt="Developer profile" style="width: 60%; height: 100%; object-fit: cover;">
+    </div>
+    <div style="flex: 1; padding: 40px; max-width: 600px;">
+     <h2 style="font-size: 42px; margin-bottom: 5px; font-weight: 600;">About Us</h2>
+     <p style="font-size: 18px; margin-top: 0; margin-bottom: 25px;"><span style="color: #cccccc;">Developer</span> <span style="color: #ff3366;">&amp; Designer</span></p>
+     <p style="line-height: 1.8; margin-bottom: 25px;">I am a front-end web developer. I can provide clean code and pixel perfect design. I also make the website more &amp; more interactive with web animations. I can provide clean code and pixel perfect design. I also make the website more &amp; more interactive with web animations. A responsive design makes your website accessible to all users, regardless of their device.</p>
+     <a href="#contact" class="lets-talk-btn" style="display: inline-block; background-color: #ff3366; color: white; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 14px;">Let's talk</a>
+    </div>
+   </div>
+
+   <div style="padding: 40px 20px; background-color: #f5f5f5;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+    </div>
+   </div>
+  </div>
+
+  <div id="gallery" class="page">
+   <div class="gallery-container">
+    <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 8px 30px rgba(0,0,0,0.15);">
+     <div class="gallery-header">
+      <h2>Project Gallery</h2>
+     </div>
+     
+     <div class="gallery-grid">
+      <div class="gallery-item">
+       <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/Best-Programming-Languages-to-Start-Learning-Today.jpg" alt="Programming Languages">
+       <div class="gallery-caption">
+        <p>Programming Languages</p>
+       </div>
+      </div>
+
+      <div class="gallery-item">
+       <img src="https://cdn.builtin.com/cdn-cgi/image/f=auto,fit=cover,w=1200,h=635,q=80/https://builtin.com/sites/www.builtin.com/files/2024-09/programming-languages.jpg" alt="Coding">
+       <div class="gallery-caption">
+        <p>Coding</p>
+       </div>
+      </div>
+      
+      <div class="gallery-item">
+       <img src="https://www.computersciencedegreehub.com/wp-content/uploads/2021/03/Brief-History-of-Programming-Languages.jpg" alt="History of Programming Languages">
+       <div class="gallery-caption">
+        <p>History of Programming Languages</p>
+       </div>
+      </div>
+      
+      <div class="gallery-item">
+       <img src="https://www.codeplatoon.org/wp-content/uploads/2019/04/close-up-code-codes-239898-1030x687.jpg" alt="Code Close-up">
+       <div class="gallery-caption">
+        <p>Code Close-up</p>
+       </div>
+      </div>
+    
+      <div class="gallery-item">
+       <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/ly36kn0ug4k?si=XTBLprYslqKSQI5g" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+       </div>
+       <div class="gallery-caption">
+        <p>HTML & CSS</p>
+       </div>
+      </div>
+      
+      <div class="gallery-item">
+       <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/Ihy0QziLDf0?si=IeffgrPh3gSArGtR" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+       </div>
+       <div class="gallery-caption">
+        <p>JavaScript Tutorial</p>
+       </div>
+      </div>
+      
+      <div class="gallery-item">
+       <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/YEmdHbQBCSQ?si=rFzceRDMiO8b4jt8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+       </div>
+       <div class="gallery-caption">
+        <p>CSS Positions tutorial</p>
+       </div>
+      </div>
+      
+      <div class="gallery-item">
+       <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/wsTv9y931o8?si=O5VY2kG2cTCC_uRV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+       </div>
+       <div class="gallery-caption">
+        <p>CSS Display tutorial</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div id="contact" class="page">
+   <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <div style="background-color: #ffd1dc; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+     <h2 style="text-align: center; color: #9370DB; font-size: 28px; margin-bottom: 30px;">Get in touch</h2>
+      
+     <form id="contact-form">
+      <div style="margin-bottom: 20px;">
+       <input type="text" id="name" name="name" placeholder="Your Name" style="width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box;">
+      </div>
+       
+      <div style="margin-bottom: 20px;">
+       <input type="email" id="email" name="email" placeholder="Your Email" style="width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box;">
+      </div>
+       
+      <div style="margin-bottom: 25px;">
+       <textarea id="message" name="message" placeholder="Your Message" rows="6" style="width: 100%; padding: 12px; border-radius: 15px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; resize: vertical;"></textarea>
+      </div>
+       
+      <button type="submit" style="width: 100%; padding: 14px; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; color: white; cursor: pointer; background: linear-gradient(45deg, #e66465, #f8a978); transition: all 0.3s ease;">Submit →</button>
+     </form>
+    </div>
+     
+    <div style="margin-top: 40px;">
+     <h3 style="text-align: center; margin-bottom: 20px;">Find us on the map</h3>
+      
+     <div class="map-section" style="text-align: center;">
+      <h3>How to Get Here</h3>
+      <p>We're located at 900 San Marcelino St Ermita Manila via Google Maps:</p>
+      <div id="googleMap" style="width:100%;height:20px;"></div>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d965.3008655515525!2d120.98497186954599!3d14.587479196992147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ca20f5c0aea9%3A0x52dea1e12d0145a0!2sAdamson%20University%20(AdU)!5e0!3m2!1sen!2sph!4v1746776257913!5m2!1sen!2sph" width="100%" height="450" style="border:0; max-width:600px; display:block; margin:0 auto;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div id="dashboard" class="page">
+   <div style="max-width: 1000px; margin: 0 auto; padding: 20px; text-align: center;">
+    <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+     <h2>Dashboard</h2>
+     <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 30px 0;">
+      <div style="flex: 1; min-width: 200px; background-color: #f9f9f9; padding: 20px; border-radius: 8px; text-align: center;">
+       <h3>Total Posts</h3>
+       <p style="font-size: 32px; font-weight: bold; margin: 10px 0;">8</p>
+      </div>
+      <div style="flex: 1; min-width: 200px; background-color: #f9f9f9; padding: 20px; border-radius: 8px; text-align: center;">
+       <h3>Comments</h3>
+       <p style="font-size: 32px; font-weight: bold; margin: 10px 0;">24</p>
+      </div>
+      <div style="flex: 1; min-width: 200px; background-color: #f9f9f9; padding: 20px; border-radius: 8px; text-align: center;">
+       <h3>Page Views</h3>
+       <p style="font-size: 32px; font-weight: bold; margin: 10px 0;">1250</p>
+      </div>
+     </div>
+      
+     <h3 style="margin-top: 40px;">Recent Activity</h3>
+     <ul style="list-style-position: inside; padding-left: 0;">
+      <li>New post published: "JavaScript"</li>
+      <li>Updated article: "CSS Flexbox"</li>
+     </ul>
+    </div>
+     
+    <div style="background: white; padding: 30px; border-radius: 10px; margin-top: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+     <h2>Quick Actions</h2>
+     <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
+      <a href="#" style="padding: 10px 20px; background-color: #728FCE; color: white; text-decoration: none; border-radius: 5px;">Write New Post</a>
+      <a href="#" style="padding: 10px 20px; background-color: #728FCE; color: white; text-decoration: none; border-radius: 5px;">Moderate Comments</a>
+      <a href="#" style="padding: 10px 20px; background-color: #728FCE; color: white; text-decoration: none; border-radius: 5px;">Update Profile</a>
+     </div>
+    </div>
+   </div>
+  </div>
+ </main>
+
+ <footer style="background: #728FCE; color: white; text-align: center; padding: 1.5rem; margin-top: 20px; position: relative; bottom: 0; width: 100%; box-sizing: border-box;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+   <p style="margin: 0;">&copy; 2025 My Blog. All rights reserved.</p>
+   <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+    <a href="#" style="color: white; text-decoration: none; position: relative; padding: 0 15px;">Privacy Policy</a>
+    <a href="#" style="color: white; text-decoration: none; position: relative; padding: 0 15px;">Terms of Service</a>
+    <a href="#" style="color: white; text-decoration: none; position: relative; padding: 0 15px;">Contact</a>
+   </div>
+  </div>
+ </footer>
+
+ <style>
+  html, body {
+   min-height: 100vh;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+  }
+  
+  body {
+   display: flex;
+   flex-direction: column;
+  }
+  
+  main {
+   flex: 1;
+   margin-bottom: auto;
+  }
+  
+  @media screen and (max-width: 600px) {
+   footer div a {
+    padding: 0 10px !important;
+   }
+  }
+  
+  @media screen and (max-width: 400px) {
+   footer div {
+    flex-direction: column;
+    gap: 10px;
+   }
+   
+   footer div a {
+    padding: 5px 0 !important;
+   }
+  }
+ </style>
+
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+   const navLinks = document.querySelectorAll('.nav-link');
+   const pages = document.querySelectorAll('.page');
+   const readMoreLinks = document.querySelectorAll('.read-more');
+   const letsTalkBtn = document.querySelector('.lets-talk-btn');
+
+   navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+     e.preventDefault();
+
+     navLinks.forEach(l => l.classList.remove('active'));
+     pages.forEach(p => p.classList.remove('active'));
+
+     this.classList.add('active');
+
+     const pageId = this.getAttribute('data-page');
+     document.getElementById(pageId).classList.add('active');
+    });
+   });
+
+   readMoreLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+     e.preventDefault();
+ 
+     navLinks.forEach(l => l.classList.remove('active'));
+     pages.forEach(p => p.classList.remove('active'));
+      
+     document.querySelector('[data-page="blogs"]').classList.add('active');
+     document.getElementById('blogs').classList.add('active');
+    });
+   });
+
+   if (letsTalkBtn) {
+    letsTalkBtn.addEventListener('click', function(e) {
+     e.preventDefault();
+
+     navLinks.forEach(l => l.classList.remove('active'));
+     pages.forEach(p => p.classList.remove('active'));
+      
+     document.querySelector('[data-page="contact"]').classList.add('active');
+     document.getElementById('contact').classList.add('active');
+    });
+   }
+
+   const contactForm = document.getElementById('contact-form');
+   if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+     e.preventDefault();
+     alert('Message sent!');
+     this.reset();
+    });
+   }
+  });
+ </script>
+</body>
+</html>
